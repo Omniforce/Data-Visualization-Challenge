@@ -1,13 +1,30 @@
 $(function() {
-	var params = {};
+	var establishmentParams = {};
+	var liquorParams = {};
+	
 	var establishmentsData = [];
+	var liquorLicensesData = [];
 
-	getEstablishments(params, function(data) {
-		establishmentsData = data;
-		$('#establishments').bootstrapTable({
+	getEstablishments(establishmentsData, function(establishmentData) {
+		establishmentsData = establishmentData;
+		
+		buildBootstrapTable(establishmentData);
+
+		getLiquorLicenses(liquorParams, function(liquorData) {
+			liquorLicensesData = liquorData;
+		});
+	});
+});
+
+function onClickRow(row, $element) {
+	console.log(row, $element);
+}
+
+function buildBootstrapTable(data) {
+	$('#establishments').bootstrapTable({
 			data: data,                
 			pagination: true,
-			pageSize: 15,
+			pageSize: 13,
 			search: true,
 			onClickRow: onClickRow,
 			columns: [{
@@ -27,11 +44,11 @@ $(function() {
 				title: 'Zip',
 				align: 'center',
 				sortable: true
+			},
+			{
+				title: 'Liquor License',
+				align: 'center',
+				sortable: true
 			}]
 		});
-	});
-});
-
-function onClickRow(row, $element) {
-	console.log(row, $element);
 }

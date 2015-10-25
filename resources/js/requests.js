@@ -16,11 +16,10 @@ function getLiquorLicenses(params, callback) {
 var appToken = 'Jjye7GDmaT7nemBtSZu8OsD3h';
 
 function performRequest(baseUrl, parameters, callback) {
-	console.log(baseUrl, parameters, callback);
-
 	var req = new XMLHttpRequest();
+
 	$.get(
-		felBaseUri,
+		baseUrl,
 		parameters,
 		function(data) {
 			callback(data);

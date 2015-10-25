@@ -1,8 +1,8 @@
 <head>
     <!-- CSS -->
-    <!-- Bootstrap -->
     <link href="vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="vendors/bootstrap/bootstrap-table.css" rel="stylesheet">
+    <link href="vendors/daterangepicker/daterangepicker.css" rel="stylesheet">
 
     <link href="resources/css/styles.css" rel="stylesheet">
 </head>
@@ -10,16 +10,21 @@
     <div id="container" class="container">
         <h1 class="text-center">Licensing Data Visualization</h1>
 
-        <table id="establishments" class="table table-striped"></table>
+        <div id="sidebar">
+            <p><strong>See all establishments with licenses after:</strong></p>
+            <input id="datePicker" type="text" name="daterange"/>
+        </div>
+        <div id="results">
+            <table id="establishments" class="table table-striped"></table>
+        </div>
     </div>
 
     <!-- Scripts -->
-    <!-- jQuery -->
     <script type="text/javascript" src="vendors/jquery-1.11.3.min.js"></script>
-
-    <!-- Bootstrap -->
     <script type="text/javascript" src="vendors/bootstrap/js/bootstrap.js"></script>
     <script type="text/javascript" src="vendors/bootstrap/bootstrap-table.js"></script>
+    <script type="text/javascript" src="vendors/moment.min.js"></script>
+    <script type="text/javascript" src="vendors/daterangepicker/daterangepicker.js"></script>
 
     <script type="text/javascript" src="resources/js/requests.js"></script>
     <script type="text/javascript" src="resources/js/script.js"></script>

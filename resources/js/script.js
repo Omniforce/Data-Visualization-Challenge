@@ -10,6 +10,7 @@ $(function() {
 	var liquorLicensesData = [];
 
 	getEstablishments(establishmentParams, function(foodData) {
+		foodData = creatFullAddresses(foodData);
 		establishmentsData = foodData;
 
 		buildBootstrapTable(foodData);
@@ -32,6 +33,7 @@ $(function() {
 		refreshTable(establishmentsData);
 	});
 });
+
 
 function onClickRow(row, $element) {
 	// console.log(row, $element);
@@ -94,7 +96,7 @@ function buildBootstrapTable(data) {
 				sortable: true
 			},
 			{
-				field: 'address',
+				field: 'fullAddress',
 				title: 'Address',
 				align: 'center',
 			},
@@ -121,6 +123,19 @@ function refreshTable(establishments) {
 		data: establishments
 	});
 }
+
+function creatFullAddresses(establishments) {
+	establishments.forEach(function(establishment) {
+		establishment['fullAddress'] = establishment['address'] + " " + establishment['city'] + ", " + establishment['state'] + " " + establishment['zip'];
+
+		if(establishment['fullAddress'].indexOf('undefined') > -1) {
+			establishment['fullAddress'] = '-'
+		}
+	});
+
+	return establishments;
+}
+
 
 // Returns a easily readible date for display
 function dateFormatter(date) {

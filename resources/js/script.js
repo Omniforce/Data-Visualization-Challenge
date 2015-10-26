@@ -22,12 +22,22 @@ $(function() {
 			syncLiquorData(establishmentsData, liquorLicensesData);
 		});
 	});
+
+	$('#licenseFilter').change(function() {
+		console.log($('#datePicker').val());
+		filterAfterDate($('#datePicker').val(), establishmentsData) 
+	});
+
+	$('#clear').click(function() {
+		refreshTable(establishmentsData);
+	});
 });
 
 function onClickRow(row, $element) {
-	console.log(row, $element);
+	// console.log(row, $element);
 }
 
+// Adds liquorLicenseDate field to each establishment that has a liquor license
 function syncLiquorData(establishmentsData, liquorData) {
 	establishmentsData.forEach(function(establishment, index) {
 		liquorData.forEach(function(liquorLicense) {
@@ -40,6 +50,7 @@ function syncLiquorData(establishmentsData, liquorData) {
 	});
 }
 
+// Creates a date picker where the starting date is the earliest liquor license
 function setupDatePicker(establishments, liquorLicensesData) {
 	var earliestDate = findEarliestDate(liquorLicensesData);
 
@@ -47,11 +58,12 @@ function setupDatePicker(establishments, liquorLicensesData) {
 		"singleDatePicker": true,
 		"startDate": earliestDate,
 	}, function(start, end, label) {
-		var filteredEstablishments = filterLicensesAfterDate(establishments, start);
-		refreshTable(filteredEstablishments);
+		console.log("Helloer")
+		filterAfterDate(start, establishments);
 	});
 }
 
+// Find the earliest license date from a list of licenses
 function findEarliestDate(licenses) {
 	var earliest = null;
 	licenses.forEach(function(license) {
@@ -103,24 +115,14 @@ function buildBootstrapTable(data) {
 		});
 }
 
+// Rebuilds the table with the given array of establishments
 function refreshTable(establishments) {
-	console.log(establishments);
 	$('#establishments').bootstrapTable('load', {
 		data: establishments
 	});
 }
 
-function filterLicensesAfterDate(establishments, date) {
-	var afterDateFilter = function(establishment) {
-		if(establishment['liquorLicenseDate']) {
-			return moment(establishment['liquorLicenseDate']).isAfter(moment(date));
-		}
-		return false;
-	}
-
-	return establishments.filter(afterDateFilter);
-}
-
+// Returns a easily readible date for display
 function dateFormatter(date) {
 	if (date) {
 		return moment(date).format("MMMM Do, YYYY");

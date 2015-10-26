@@ -7,3 +7,11 @@
 	float: left;
 	padding-bottom: 10px
 }
+
+#licenseFilter {
+	margin-bottom: 10px;
+}
+
+#clear {
+	float: right;
+}
